@@ -1,4 +1,10 @@
-# Node.js with TypeScript 空白项目模板
+# Node.js 图床服务端项目
 
-本项目是一个空的Nodejs with TypeScript模板。
-用户可以根据自己的需要配置依赖项和脚本。
+本子项目为Node.js图床服务端。提供对前端请求的响应。
+
+## 目录结构
+
++ `images`: 静态图片文件存放目录
++ `assets`: 资源文件存放目录
++ `data`: 数据库目录
++ `dist`: 编译后的目标程序目录

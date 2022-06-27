@@ -31,6 +31,7 @@ yarn-error.log*
 
 # production
 /server-node/build/
+/server-node/dist/
 
 # environment
 .env
