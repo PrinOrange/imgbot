@@ -1,2 +1,8 @@
+import express from "express";
+import minimist from "minimist";
 
-console.log("hello world");
+const args = minimist(process.argv);
+
+const PORT: number = args["port"] ?? 3300;
+
+const app = express();
