@@ -8,3 +8,20 @@
 + `assets`: 资源文件存放目录
 + `data`: 数据库目录
 + `dist`: 编译后的目标程序目录
+
+## 编译和运行
+
+首先安装依赖项
+```
+npm install
+```
+
+可先对对项目文件进行编译
+```bash
+npm run build
+```
+
+运行项目程序
+```bash
+npm run start
+```

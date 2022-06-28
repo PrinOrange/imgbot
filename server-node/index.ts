@@ -1,23 +1,54 @@
+import colors from "colors";
 import express from "express";
-import minimist from "minimist";
 import fs from "fs";
-import path from "path";
+import minimist from "minimist";
+import formidable from "formidable";
+import { ServerSettings } from "./src/models/settings.model";
+const IMAGES_DIR_NAME: string = "images";
+const SERVER_SETTINGS_FILE: string = "./server.json";
 
-// Receive arguments from terminal and shell.
+// Receive arguments from terminal or shell.
 const args = minimist(process.argv);
 
-// Configurations for server.
-const SERVER_PORT: number = args["server-port"] ?? 3300;
-const SERVER_HOST: string = args["server-host"] ?? "localhost";
+// default server settings.
+let settings: ServerSettings = {
+  port: 3300,
+  host: "localhost",
+};
 
-
-const app = express();
-
-// Registry the static image data directory.
-app.use("/images", express.static("images"));
-
-app.get("/data/?*", (req, res) => {
-  res.status(400).send("Bad Request");
+// Load settings from file.
+fs.readFile(SERVER_SETTINGS_FILE, "utf-8", function (err, data) {
+  settings = { ...JSON.parse(data) };
 });
 
+// Configurations for server from terminal or shell.
+const SERVER_PORT: number = args["port"] ?? settings.port;
+const SERVER_HOST: string = args["host"] ?? settings.host;
+
+// Registry the static image data directory.
+const app = express();
+app.use("/images", express.static(`${IMAGES_DIR_NAME}`));
+
+console.log(colors.cyan(`Listening the port ${SERVER_PORT}`));
 app.listen(SERVER_PORT, SERVER_HOST);
+
+// Upload image URL interface
+app.post("/upload-image", (req, res) => {
+  let currentFilename = "";
+  const form = formidable({
+    multiples: true,
+    uploadDir: "./images",
+    keepExtensions: true,
+    filename: (name, ext) => {
+      currentFilename = `${Date.now()}${ext}`;
+      return currentFilename;
+    },
+  });
+  form.parse(req, (err, fields, files) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json({ name: currentFilename });
+  });
+});
+
+console.info(colors.green("The server is running."));
+console.info(`Now the server is work on http://${SERVER_HOST}:${SERVER_PORT}`);

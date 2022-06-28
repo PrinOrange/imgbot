@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>上传图片接口测试</title>
+  </head>
+  <body>
+    <input type="file" id="upload-dom" />
+    <button id="post-file-button">发送文件</button>
+    <script>
+      const data = new FormData();
+      const upload_dom = document.getElementById("upload-dom");
+      const post_file_button = document.getElementById("post-file-button");
+      const upload_URL = "http://localhost:2000/upload-image";
+
+      function uploadAction() {
+        data.append("file", upload_dom.files[0]);
+        data.append("qqq", "aaa");
+        console.log(upload_dom.files[0]);
+      }
+
+      function postFileAction() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", upload_URL, true);
+
+        xhr.send(data);
+        console.log(data);
+      }
+      upload_dom.addEventListener("change", uploadAction);
+      post_file_button.addEventListener("click", postFileAction);
+    </script>
+  </body>
+</html>
