@@ -4,6 +4,7 @@ import fs from "fs";
 import minimist from "minimist";
 import formidable from "formidable";
 import { ServerSettings } from "./src/models/settings.model";
+import { v4 as uuid4 } from "uuid";
 const IMAGES_DIR_NAME: string = "images";
 const SERVER_SETTINGS_FILE: string = "./server.json";
 
@@ -40,7 +41,7 @@ app.post("/upload-image", (req, res) => {
     uploadDir: "./images",
     keepExtensions: true,
     filename: (name, ext) => {
-      currentFilename = `${Date.now()}${ext}`;
+      currentFilename = `${uuid4()}${ext}`;
       return currentFilename;
     },
   });
