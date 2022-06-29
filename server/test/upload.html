@@ -10,17 +10,18 @@
       const data = new FormData();
       const upload_dom = document.getElementById("upload-dom");
       const post_file_button = document.getElementById("post-file-button");
-      const upload_URL = "http://localhost:2000/upload-image";
+      const upload_URL = "http://127.0.0.8:8080/api/upload.php";
 
       function uploadAction() {
-        data.append("file", upload_dom.files[0]);
+        for(let i = 0;i<upload_dom.files.length;i++){
+          data.append(`file${i}`, upload_dom.files[i]);
+        }
         console.log(upload_dom.files[0]);
       }
 
       function postFileAction() {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", upload_URL, true);
-
         xhr.send(data);
         console.log(data);
       }
