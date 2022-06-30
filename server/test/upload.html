@@ -4,7 +4,7 @@
     <title>上传图片接口测试</title>
   </head>
   <body>
-    <input type="file" id="upload-dom" multiple="true" />
+    <input type="file" id="upload-dom" />
     <button id="post-file-button">发送文件</button>
     <script>
       const data = new FormData();
@@ -13,10 +13,7 @@
       const upload_URL = "http://127.0.0.8:8080/api/upload.php";
 
       function uploadAction() {
-        for(let i = 0;i<upload_dom.files.length;i++){
-          data.append(`file${i}`, upload_dom.files[i]);
-        }
-        console.log(upload_dom.files[0]);
+        data.append(`upload_image`, upload_dom.files[0]);
       }
 
       function postFileAction() {
