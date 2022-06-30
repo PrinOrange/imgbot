@@ -35,5 +35,5 @@ try {
     $response["status"] = "err";
     $response["message"] = $e->getMessage();
 }
-
+// TODO: 解决异常和错误输出的方案。
 echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
