@@ -1,6 +1,8 @@
 <?php
 header("Content-type:application/json");
 
+$PROTOCOL = "aaa";
+
 define("INCLUDE_PATH", "E:/SiteProj/imgbot/server");
 define("FILE_API_NAME", "upload_image");
 
