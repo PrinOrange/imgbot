@@ -1,8 +1,8 @@
 import colors from "colors";
 import express from "express";
+import formidable from "formidable";
 import fs from "fs";
 import minimist from "minimist";
-import formidable from "formidable";
 import { ServerSettings } from "./src/models/settings.model";
 import { v4 as uuid4 } from "uuid";
 

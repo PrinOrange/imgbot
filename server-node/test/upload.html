@@ -4,28 +4,25 @@
     <title>上传图片接口测试</title>
   </head>
   <body>
-    <input type="file" id="upload-dom" multiple="true" />
+    <input type="file" id="upload-dom" />
     <button id="post-file-button">发送文件</button>
     <script>
-      const data = new FormData();
+      const formData = new FormData();
       const upload_dom = document.getElementById("upload-dom");
       const post_file_button = document.getElementById("post-file-button");
-      const upload_URL = "http://localhost:2000/upload-image";
+      const api_URL = "http://localhost:2000/upload-image";
 
-      function uploadAction() {
-        data.append("file", upload_dom.files[0]);
-        console.log(upload_dom.files[0]);
+      function selectImageAction() {
+        formData.append(`upload_image`, upload_dom.files[0]);
       }
 
-      function postFileAction() {
+      function uploadImageAction() {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", upload_URL, true);
-
-        xhr.send(data);
-        console.log(data);
+        xhr.open("POST", api_URL, true);
+        xhr.send(formData);
       }
-      upload_dom.addEventListener("change", uploadAction);
-      post_file_button.addEventListener("click", postFileAction);
+      upload_dom.addEventListener("change", selectImageAction);
+      post_file_button.addEventListener("click", uploadImageAction);
     </script>
   </body>
 </html>
