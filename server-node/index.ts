@@ -45,7 +45,7 @@ app.post("/upload-image", (req, res) => {
     keepExtensions: true,
     filename: (name, ext) => {
       currentFileId = `${uuid4()}`;
-      currentFilename = `${currentFileId}.test${ext}`;
+      currentFilename = `${currentFileId}${ext}`;
       return currentFilename;
     },
   });

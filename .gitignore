@@ -9,10 +9,8 @@
 
 # testing
 /client/coverage
-.test.jpg
-.test.png
-.test.bmp
-.test.gif
+/server/images/
+/server-node/images/
 
 # production
 /client/build
