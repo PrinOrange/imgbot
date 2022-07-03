@@ -21,7 +21,7 @@ try {
     if ($_FILES[FILE_API_NAME]["error"] == UPLOAD_ERR_OK) {
         $image_id = uniqid();
         $temp_file_path = $_FILES[FILE_API_NAME]["tmp_name"];
-        $upload_file_name = $image_id . '.' . pathinfo($_FILES[FILE_API_NAME]["name"], PATHINFO_EXTENSION);
+        $upload_file_name = $image_id . "test" . '.' . pathinfo($_FILES[FILE_API_NAME]["name"], PATHINFO_EXTENSION);
         $upload_file_path = "$full_uploads_dir/$upload_file_name";
         if (exif_imagetype($temp_file_path) == false) {
             throw new Exception("非法图片格式");

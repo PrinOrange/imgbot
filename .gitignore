@@ -9,6 +9,10 @@
 
 # testing
 /client/coverage
+.test.jpg
+.test.png
+.test.bmp
+.test.gif
 
 # production
 /client/build
