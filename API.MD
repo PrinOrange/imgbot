@@ -3,9 +3,15 @@
 ### 上传图片
 
 #### 请求地址：
+PHP版本地址：
 ```
 http://pic.example.com/api/upload.php
 ```
+Nodejs版本地址：
+```
+http://pic.example.com/upload-image
+```
+
 #### 请求方法：
 `POST`
 
@@ -34,6 +40,7 @@ JSON字段说明如下：
 ### 删除图片
 
 #### 请求地址：
+PHP版本地址：
 ```
 http://pic.example.com/api/upload.php
 ```

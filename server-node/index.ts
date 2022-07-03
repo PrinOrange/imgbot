@@ -36,19 +36,33 @@ app.listen(SERVER_PORT, SERVER_HOST);
 
 // Upload image URL interface
 app.post("/upload-image", (req, res) => {
-  let currentFilename = "";
+  let currentFilename: string;
+  let currentFileId: string;
+
   const form = formidable({
     multiples: true,
     uploadDir: IMAGES_DIR_NAME,
     keepExtensions: true,
     filename: (name, ext) => {
-      currentFilename = `${uuid4()}${ext}`;
+      currentFileId = `${uuid4()}`;
+      currentFilename = `${currentFileId}${ext}`;
       return currentFilename;
     },
   });
+
+  form.on("file", (formname, file) => {
+    console.log(formname);
+    form.emit("data", { name: "file", formname, value: file });
+  });
+
   form.parse(req, (err, fields, files) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.json({ name: currentFilename });
+    res.json({
+      status: "ok",
+      url: `http://${SERVER_HOST}:${SERVER_PORT}/${IMAGES_DIR_NAME}/${currentFilename}`,
+      id: `${currentFileId}`,
+      message: null,
+    });
   });
 });
 
