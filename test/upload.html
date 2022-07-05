@@ -10,17 +10,25 @@
       <input type="radio" checked="true" name="test-mode" id="switch-to-nodejs" value="nodejs">Nodejs</input>
       <script>
         var server = "nodejs";
+        const api_URL = {
+          upload:{
+            php:"http://127.0.0.8:8080/api/upload.php",
+            nodejs:"http://localhost:2000/upload-image"            
+          },
+        }
         document.getElementById("switch-to-php").addEventListener("change",()=>(server = "php"));
         document.getElementById("switch-to-nodejs").addEventListener("change",()=>(server = "nodejs"));
       </script>      
     </div>
+    
     <hr/>
+
     <div>
       <span>上传接口测试：</span>
       <input type="file" id="upload-dom" />
       <button id="post-file-button">发送文件</button>
         <span style="margin: auto 10px ;">图片引用测试：</span>
-        <img style="width: 160px; height:90px" id="upload_preview" src>
+        <img style="width: 160px; height:90px;object-fit: contain;" id="upload_preview" src>
     </div>
 
     <script>
@@ -28,23 +36,21 @@
       const upload_dom = document.getElementById("upload-dom");
       const post_file_button = document.getElementById("post-file-button");
 
-      const api_URL = {
-        php:"http://127.0.0.8:8080/api/upload.php",
-        nodejs:"http://localhost:2000/upload-image"
-      }
-
       function selectImageAction() {
         upload_formData.append(`upload_image`, upload_dom.files[0]);
       }
 
       function uploadImageAction() {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST",api_URL[server], false);
+        xhr.open("POST",api_URL.upload[server], false);
         xhr.send(upload_formData);
         console.log(JSON.parse(xhr.responseText));
         document.getElementById("upload_preview").setAttribute("src",JSON.parse(xhr.responseText).url);
       }
     </script>
+
+    <hr/>
+
     <script>
       upload_dom.addEventListener("change", selectImageAction);
       post_file_button.addEventListener("click", uploadImageAction);

@@ -34,6 +34,7 @@ app.use("/images", express.static(`${IMAGES_DIR_NAME}`));
 console.log(colors.cyan(`Listening the port ${SERVER_PORT}`));
 app.listen(SERVER_PORT, SERVER_HOST);
 
+
 // Upload image URL interface
 app.post("/upload-image", (req, res) => {
   let currentFilename: string;
@@ -64,7 +65,11 @@ app.post("/upload-image", (req, res) => {
       message: null,
     });
   });
+
 });
+
+
+
 
 console.info(colors.green("The server is running."));
 console.info(`Now the server is work on http://${SERVER_HOST}:${SERVER_PORT}`);
