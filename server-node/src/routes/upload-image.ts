@@ -1,20 +1,20 @@
-import colors from 'colors';
-import formidable, { File as FormFile } from 'formidable';
-import { Express } from 'express';
-import { UploadResponse } from '../models/response.model';
-import { v4 as uuid4 } from 'uuid';
+import colors from "colors";
+import formidable, { File as FormFile } from "formidable";
+import { Express } from "express";
+import { UploadResponse } from "../models/response.model";
+import { v4 as uuid4 } from "uuid";
 
-export const useUploadRoute = (app: Express, host: string, port: number, upload_dir_name: string) => {
-  // Upload image URL interface
+// Upload image URL interface
+export const useUploadRoute = (app: Express, host: string, port: number, staticImagesDirName: string) => {
   app.post("/upload-image", (req, res) => {
     let currentFilename: string;
     let currentFileId: string;
 
     const form = formidable({
       multiples: true,
-      uploadDir: upload_dir_name,
+      uploadDir: `${staticImagesDirName}`,
       keepExtensions: true,
-      filename: (name, ext) => {
+      filename: (_name, ext) => {
         currentFileId = uuid4();
         currentFilename = `${currentFileId}${ext}`;
         return currentFilename;
@@ -25,7 +25,7 @@ export const useUploadRoute = (app: Express, host: string, port: number, upload_
       form.emit("data", { name: "file", formname, value: file });
     });
 
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, _fields, files) => {
       res.header("Access-Control-Allow-Origin", "*");
       let response: UploadResponse = {
         status: "ok",
@@ -42,7 +42,7 @@ export const useUploadRoute = (app: Express, host: string, port: number, upload_
       }
       console.log((files["upload_image"] as FormFile).size);
       response.id = currentFileId;
-      response.url = `http://${host}:${port}/${upload_dir_name}/${currentFilename}`;
+      response.url = `http://${host}:${port}/${staticImagesDirName}/${currentFilename}`;
       res.json(response);
     });
   });

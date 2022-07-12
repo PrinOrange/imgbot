@@ -1,9 +1,7 @@
-import colors from "colors";
 import fs from "fs";
 import minimist from "minimist";
-import {  startApp } from "./app";
+import {  prepareApp, startApp } from "./app";
 import { ServerSettings } from "./models/settings.model";
-import { useUploadRoute } from "./routes/upload-image";
 
 const IMAGES_DIR_NAME: string = "images";
 const SERVER_SETTINGS_FILE_PATH: string = "./server.json";
@@ -26,10 +24,14 @@ fs.readFile(SERVER_SETTINGS_FILE_PATH, "utf-8", function (err, data) {
 const SERVER_PORT: number = args["port"] ?? settings.port;
 const SERVER_HOST: string = args["host"] ?? settings.host;
 
+// Prepare App working environment
+prepareApp();
+
+// Run App
 startApp({
   port: SERVER_PORT,
   host: SERVER_HOST,
-  upload_dir_name: IMAGES_DIR_NAME,
+  staticImagesDirName: IMAGES_DIR_NAME,
 });
 
 

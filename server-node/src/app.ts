@@ -3,13 +3,18 @@ import { useUploadRoute } from "./routes/upload-image";
 import colors from "colors";
 import { useImages } from "./routes/images";
 
-export const startApp = (props: { host: string; port: number; upload_dir_name: string }) => {
+export const prepareApp = ()=>{
+    
+}
+
+export const startApp = (setting: { host: string; port: number; staticImagesDirName: string }) => {
   const app = express();
 
-  useImages(app,props.upload_dir_name);
-  useUploadRoute(app, props.host, props.port, props.upload_dir_name);
+  useImages(app,setting.staticImagesDirName);
+  useUploadRoute(app, setting.host, setting.port, setting.staticImagesDirName);
 
-  app.listen(props.port, props.host);
+  app.listen(setting.port, setting.host);
+
   console.info(colors.green("The server is running."));
-  console.info(colors.green(`Now the server is work on http://${props.host}:${props.port}`));
+  console.info(colors.green(`Now the server is work on http://${setting.host}:${setting.port}`));
 };
