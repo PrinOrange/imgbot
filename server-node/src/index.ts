@@ -64,16 +64,19 @@ app.post("/upload-image", (req, res) => {
       response.status = "err";
       response.message = err;
       res.json(response);
+      return;
     }    
     if (files["upload_image"] === undefined) {
       response.status = "err";
       response.message = "You must upload a file with the name of 'upload_image'.";
       res.json(response);
+      return;
     }
     console.log((files["upload_image"] as FormFile).size);
     response.id = currentFileId;
     response.url = `http://${SERVER_HOST}:${SERVER_PORT}/${IMAGES_DIR_NAME}/${currentFilename}`;
     res.json(response);
+    return;
   });
 });
 
