@@ -1,7 +1,7 @@
 import colors from "colors";
 import fs from "fs";
 import minimist from "minimist";
-import { app } from "./app";
+import {  startApp } from "./app";
 import { ServerSettings } from "./models/settings.model";
 import { useUploadRoute } from "./routes/upload-image";
 
@@ -26,10 +26,10 @@ fs.readFile(SERVER_SETTINGS_FILE_PATH, "utf-8", function (err, data) {
 const SERVER_PORT: number = args["port"] ?? settings.port;
 const SERVER_HOST: string = args["host"] ?? settings.host;
 
-console.log(colors.cyan(`Listening the port ${SERVER_PORT}`));
-app.listen(SERVER_PORT, SERVER_HOST);
+startApp({
+  port: SERVER_PORT,
+  host: SERVER_HOST,
+  upload_dir_name: IMAGES_DIR_NAME,
+});
 
-useUploadRoute(SERVER_HOST,SERVER_PORT,IMAGES_DIR_NAME);
 
-console.info(colors.green("The server is running."));
-console.info(colors.green(`Now the server is work on http://${SERVER_HOST}:${SERVER_PORT}`));

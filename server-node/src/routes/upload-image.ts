@@ -1,11 +1,10 @@
-import formidable, { File as FormFile } from "formidable";
-import { v4 as uuid4 } from "uuid";
-import { app } from "../app";
-import { UploadResponse } from "../models/response.model";
-import colors from "colors";
+import colors from 'colors';
+import formidable, { File as FormFile } from 'formidable';
+import { Express } from 'express';
+import { UploadResponse } from '../models/response.model';
+import { v4 as uuid4 } from 'uuid';
 
-export const useUploadRoute = (host:string,port:number,upload_dir_name:string) => {
-
+export const useUploadRoute = (app: Express, host: string, port: number, upload_dir_name: string) => {
   // Upload image URL interface
   app.post("/upload-image", (req, res) => {
     let currentFilename: string;
@@ -48,5 +47,5 @@ export const useUploadRoute = (host:string,port:number,upload_dir_name:string) =
     });
   });
 
-  console.log(colors.green("Upload route is working..."))
+  console.log(colors.green("Upload route is working..."));
 };
