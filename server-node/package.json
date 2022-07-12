@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config ./config/webpack.dev.config.js",
-    "start": "./dist/index.js",
+    "start": "node ./dist/index.js",
     "build": "webpack --config ./config/webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -64,7 +64,7 @@
     "fastest-levenshtein": "^1.0.12",
     "fill-range": "^7.0.1",
     "find-up": "^4.1.0",
-    "formidable": "^2.0.1",
+    "formidable": "^3.2.4",
     "function-bind": "^1.1.1",
     "glob-to-regexp": "^0.4.1",
     "graceful-fs": "^4.2.10",
