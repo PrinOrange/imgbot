@@ -3,9 +3,9 @@ import express from "express";
 import formidable, { File as FormFile } from "formidable";
 import fs from "fs";
 import minimist from "minimist";
-import { ServerSettings } from "./src/models/settings.model";
+import { ServerSettings } from "./models/settings.model";
 import { v4 as uuid4 } from "uuid";
-import { UploadResponse } from "./src/models/response.model";
+import { UploadResponse } from "./models/response.model";
 
 const IMAGES_DIR_NAME: string = "images";
 const SERVER_SETTINGS_FILE_PATH: string = "./server.json";
@@ -64,16 +64,19 @@ app.post("/upload-image", (req, res) => {
       response.status = "err";
       response.message = err;
       res.json(response);
+      return;
     }    
     if (files["upload_image"] === undefined) {
       response.status = "err";
       response.message = "You must upload a file with the name of 'upload_image'.";
       res.json(response);
+      return;
     }
     console.log((files["upload_image"] as FormFile).size);
     response.id = currentFileId;
     response.url = `http://${SERVER_HOST}:${SERVER_PORT}/${IMAGES_DIR_NAME}/${currentFilename}`;
     res.json(response);
+    return;
   });
 });
 
