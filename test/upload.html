@@ -5,19 +5,10 @@
   </head>
   <body>
     <div>
-      <span>选择服务器：</span>
-      <input type="radio" name="test-mode" id="switch-to-php">PHP</input>
-      <input type="radio" checked="true" name="test-mode" id="switch-to-nodejs" value="nodejs">Nodejs</input>
       <script>
-        var server = "nodejs";
         const api_URL = {
-          upload:{
-            php:"http://127.0.0.8:8080/api/upload.php",
-            nodejs:"http://localhost:3300/upload-image"            
-          },
+          upload:"http://localhost:3300/upload-image"            
         }
-        document.getElementById("switch-to-php").addEventListener("change",()=>(server = "php"));
-        document.getElementById("switch-to-nodejs").addEventListener("change",()=>(server = "nodejs"));
       </script>      
     </div>
     
@@ -42,7 +33,7 @@
 
       function uploadImageAction() {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST",api_URL.upload[server], false);
+        xhr.open("POST",api_URL.upload, false);
         xhr.send(upload_formData);
         console.log(JSON.parse(xhr.responseText));
         document.getElementById("upload_preview").setAttribute("src",JSON.parse(xhr.responseText).url);
