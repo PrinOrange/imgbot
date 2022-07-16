@@ -5,10 +5,9 @@ import { useImages } from "./routes/images";
 import fs from "fs";
 
 export const prepareApp = () => {
+  //TODO:增加存在检测
   fs.mkdir("./images", (err) => {
-    if (err) {
-      return console.error(err);
-    }
+    if (err) return console.error(err);
   });
 };
 
