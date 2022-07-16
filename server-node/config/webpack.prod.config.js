@@ -2,7 +2,9 @@ const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 
 const WebpackProductionConfiguration = {
-  entry: "./src/index.ts",
+  entry: {
+    index:"./src/app/index.ts",
+  },
   optimization: {
     minimize: false,
     minimizer: [
@@ -26,7 +28,7 @@ const WebpackProductionConfiguration = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: "index.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "../build"),
   },
 };
