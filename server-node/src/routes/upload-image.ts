@@ -15,7 +15,7 @@ export const useUploadRoute = (app: Express, host: string, port: number, staticI
       uploadDir: `${staticImagesDirName}`,
       keepExtensions: true,
       filename: (_name, ext) => {
-        currentFileId = uuid4();
+        currentFileId = uuid4().replace(/-/g,'');
         currentFilename = `${currentFileId}${ext}`;
         return currentFilename;
       },
@@ -40,7 +40,6 @@ export const useUploadRoute = (app: Express, host: string, port: number, staticI
         response.message = "You must upload a file with the name of 'upload_image'.";
         res.json(response);
       }
-      console.log((files["upload_image"] as FormFile).size);
       response.id = currentFileId;
       response.url = `http://${host}:${port}/${staticImagesDirName}/${currentFilename}`;
       res.json(response);
