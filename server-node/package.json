@@ -4,11 +4,11 @@
   "description": "imgbot for nodejs implement",
   "main": "index.js",
   "scripts": {
-    "preview":"cd ./src/test && preview.html",
+    "preview": "cd ./src/app/test && preview.html",
     "dev": "webpack --config ./config/webpack.dev.config.js && node ./scripts/pack.js && cd ./build && node ./index.js",
     "start": "webpack --config ./config/webpack.prod.config.js && node ./scripts/pack.js && cd ./build && node ./index.js",
-    "package":"webpack --config ./config/webpack.prod.config.js && node ./scripts/pack.js",
-    "clean":"node ./scripts/clean.js",
+    "package": "webpack --config ./config/webpack.prod.config.js && node ./scripts/pack.js",
+    "clean": "node ./scripts/clean.js",
     "test": "jest"
   },
   "keywords": [],
@@ -97,6 +97,8 @@
     "mime-types": "^2.1.35",
     "minimist": "^1.2.6",
     "neo-async": "^2.6.2",
+    "node-gyp": "^9.1.0",
+    "node-pre-gyp": "^0.17.0",
     "node-releases": "^2.0.6",
     "p-limit": "^2.3.0",
     "p-locate": "^4.1.0",

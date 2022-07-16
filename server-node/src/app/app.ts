@@ -2,8 +2,15 @@ import express from "express";
 import { useUploadRoute } from "./routes/upload-image";
 import colors from "colors";
 import { useImages } from "./routes/images";
+import fs from "fs";
 
-export const prepareApp = () => {};
+export const prepareApp = () => {
+  fs.mkdir("./images", (err) => {
+    if (err) {
+      return console.error(err);
+    }
+  });
+};
 
 export const startApp = (setting: { host: string; port: number; staticImagesDirName: string }) => {
   const app = express();
