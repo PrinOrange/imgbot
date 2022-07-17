@@ -5,14 +5,14 @@ import { UploadResponse } from "../models/response.model";
 import { v4 as uuid4 } from "uuid";
 
 // Upload image URL interface
-export const useUploadRoute = (app: Express, host: string, port: number, staticImagesDirName: string) => {
+export const useUploadRoute = (app: Express, host: string, port: number) => {
   app.post("/upload-image", (req, res) => {
     let currentFilename: string;
     let currentFileId: string;
 
     const form = formidable({
       multiples: true,
-      uploadDir: `${staticImagesDirName}`,
+      uploadDir: 'images',
       keepExtensions: true,
       filename: (_name, ext) => {
         currentFileId = uuid4().replace(/-/g,'');
@@ -41,7 +41,7 @@ export const useUploadRoute = (app: Express, host: string, port: number, staticI
         res.json(response);
       }
       response.id = currentFileId;
-      response.url = `http://${host}:${port}/${staticImagesDirName}/${currentFilename}`;
+      response.url = `http://${host}:${port}/images/${currentFilename}`;
       res.json(response);
     });
   });

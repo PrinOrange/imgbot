@@ -1,30 +1,11 @@
-import minimist from "minimist";
 import { ServerSettings } from "./models/settings.model";
-import fs from "fs";
+import fs from "fs/promises";
 
-export const IMAGES_DIR_NAME: string = "images";
-export const SERVER_SETTINGS_FILE_PATH: string = "./server.json";
-
-// Receive arguments from terminal or shell.
-const args = minimist(process.argv);
-
-// Load settings from file.
-const loadSettings = () => {
-  const result = {
+export const loadSettings = async (): Promise<ServerSettings> => {
+  const default_settings: ServerSettings = {
     port: 3300,
     host: "localhost",
   };
-  fs.readFile(SERVER_SETTINGS_FILE_PATH, "utf-8", function (err, data) {
-    if (!err) Object.assign(result, JSON.parse(data));
-  });
-  return result;
+  const loaded_settings = await fs.readFile("./server.json", "utf-8");
+  return { ...default_settings, ...JSON.parse(loaded_settings) };
 };
-
-//TODO:放弃命令行传参，改用配置文件传参。
-
-// default server settings.
-const DEFAULT_SETTINGS: ServerSettings = loadSettings();
-
-// Configurations for server from terminal or shell.
-export const SERVER_PORT: number = args["port"] ?? DEFAULT_SETTINGS.port;
-export const SERVER_HOST: string = args["host"] ?? DEFAULT_SETTINGS.host;

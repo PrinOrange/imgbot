@@ -1,20 +1,22 @@
-import express from "express";
-import { useUploadRoute } from "./routes/upload-image";
-import colors from "colors";
-import { useImages } from "./routes/images";
-import fs from "fs";
+import colors from 'colors';
+import express from 'express';
+import fs from 'fs';
+import fsp from 'fs/promises';
+import { ServerSettings } from './models/settings.model';
+import { useImages } from './routes/images';
+import { useUploadRoute } from './routes/upload-image';
 
 export const prepareApp = () => {
-  //TODO:增加存在检测
-  fs.mkdir("./images", (err) => {
-    if (err) return console.error(err);
-  });
+  if (!fs.existsSync("./images")) {
+    fsp.mkdir("./images").catch((err) => console.log(err.message));
+  }
 };
 
-export const startApp = (setting: { host: string; port: number; staticImagesDirName: string }) => {
+export const startApp = (setting: ServerSettings) => {
   const app = express();
-  useImages(app, setting.staticImagesDirName);
-  useUploadRoute(app, setting.host, setting.port, setting.staticImagesDirName);
-  app.listen(setting.port, setting.host);
-  console.info(colors.green(`Now the server is work on http://${setting.host}:${setting.port}`));
+  useImages(app);
+  useUploadRoute(app, setting.host, setting.port);
+  app.listen(setting.port, setting.host)
+  console.info(colors.green(`Now the server is work on ${setting.host}:${setting.port}`));
+  return app;
 };
