@@ -3,9 +3,9 @@ import express, { Express } from "express";
 import fs from "fs";
 import fsp from "fs/promises";
 import { ServerSettings } from "./models/settings.model";
-import { useDelete } from "./routes/delete";
-import { useImages } from "./routes/images";
-import { useUploadRoute } from "./routes/upload-image";
+import { useDelete } from "./apis/delete";
+import { useImages } from "./apis/images";
+import { useUploadRoute } from "./apis/upload-image";
 
 export const prepareApp = async () => {
   return new Promise<Express>((resolve, reject) => {
