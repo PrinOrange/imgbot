@@ -7,19 +7,20 @@
     <div>
       <script>
         const api_URL = {
-          upload:"http://localhost:3300/upload-image"            
-        }
-      </script>      
+          upload: "http://localhost:3300/upload-image",
+          delete: "http://localhost:3300/delete",
+        };
+      </script>
     </div>
-    
-    <hr/>
+
+    <hr />
 
     <div>
       <span>上传接口测试：</span>
       <input type="file" id="upload-dom" multiple="true" />
       <button id="post-file-button">发送文件</button>
-        <span style="margin: auto 10px ;">图片引用测试：</span>
-        <img style="width: 160px; height:90px;object-fit: contain;" id="upload_preview" src>
+      <span style="margin: auto 10px">图片引用测试：</span>
+      <img style="width: 160px; height: 90px; object-fit: contain" id="upload_preview" src />
     </div>
 
     <script>
@@ -33,18 +34,38 @@
 
       function uploadImageAction() {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST",api_URL.upload, false);
+        xhr.open("POST", api_URL.upload, false);
         xhr.send(upload_formData);
         console.log(JSON.parse(xhr.responseText));
-        document.getElementById("upload_preview").setAttribute("src",JSON.parse(xhr.responseText).url);
+        document.getElementById("upload_preview").setAttribute("src", JSON.parse(xhr.responseText).url);
       }
     </script>
 
-    <hr/>
+    <hr />
+
+    <div>
+      <span>删除接口测试：</span>
+      <input type="text" id="delete-id-dom" />
+      <button id="delete-image-button">确定删除</button>
+    </div>
+
+    <script>
+      const delete_id_dom = document.getElementById("delete-id-dom");
+      const delete_image_button = document.getElementById("delete-image-button");
+      function deleteImageAction() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", api_URL.delete, false);
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify({
+          id:"aaaaaaa"
+        }));
+      }
+    </script>
 
     <script>
       upload_dom.addEventListener("change", selectImageAction);
       post_file_button.addEventListener("click", uploadImageAction);
+      delete_image_button.addEventListener("click",deleteImageAction);
     </script>
   </body>
 </html>

@@ -4,8 +4,9 @@ import { Express } from "express";
 import { UploadResponse } from "../models/response.model";
 import { v4 as uuid4 } from "uuid";
 
-// Upload image URL interface
+/* Registry upload-images route. */
 export const useUploadRoute = (app: Express, host: string, port: number) => {
+
   app.post("/upload-image", (req, res) => {
     let currentFilename: string;
     let currentFileId: string;
