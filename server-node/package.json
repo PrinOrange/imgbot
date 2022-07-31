@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "preview": "cd ./src/app/test && preview.html",
-    "dev:app":"npx ts-node ./scripts/pack.ts && webpack --config ./config/webpack.dev.app.config.ts --watch",
+    "dev:app":"npm run pack:dev && webpack --config ./config/webpack.dev.app.config.ts --watch",
     "dev": "webpack --config ./config/webpack.dev.config.ts && npx ts-node ./scripts/pack.ts && cd ./build && node ./index.js",
     "start:app": "webpack --config ./config/webpack.prod.config.ts && npx ts-node ./scripts/pack.ts && cd ./build && node ./index.js",
-    
+    "pack:dev":"cross-env NODE_ENV=development npx ts-node ./scripts/pack.ts",
+    "pack:prod":"cross-env NODE_ENV=production npx ts-node ./scripts/pack.ts",
     "package": "webpack --config ./config/webpack.prod.config.ts && npx ts-node ./scripts/pack.ts",
-    "clean": "cross-env NODE_ENV=development npx ts-node ./scripts/clean.ts",
+    "clean": "npx ts-node ./scripts/clean.ts",
     "test": "jest",
     "build:dev:tools": "webpack --config ./config/webpack.dev.tools.config.ts",
     "build:dev:app": "webpack --config ./config/webpack.dev.app.config.ts",

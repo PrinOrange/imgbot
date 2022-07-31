@@ -17,7 +17,7 @@ const DefaultSettingsFileTemplate = {
 };
 
 fs.writeFile(
-    './build/server.json',
+    `./build/${process.env.NODE_ENV === 'development'?'dev':'prod'}/server.json`,
     JSON.stringify(DefaultSettingsFileTemplate, null, 2),
     (err: any) => {
       if (err) console.error(err);
@@ -25,7 +25,7 @@ fs.writeFile(
 );
 
 fs.writeFile(
-    './build/package.json',
+    `./build/${process.env.NODE_ENV === 'development'?'dev':'prod'}/package.json`,
     JSON.stringify(PackageTemplate, null, 2),
     (err: any) => {
       if (err) console.error(err);

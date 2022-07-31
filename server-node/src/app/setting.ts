@@ -2,7 +2,7 @@ import {ServerSettings} from './models/settings.model';
 import fs from 'fs/promises';
 
 export const loadSettings = async (): Promise<ServerSettings> => {
-  const default_settings: ServerSettings = {
+  const defaultSettings: ServerSettings = {
     port: 3300,
     host: 'localhost',
     password: '',
@@ -12,8 +12,8 @@ export const loadSettings = async (): Promise<ServerSettings> => {
     mysql_host: '',
     mysql_password: '',
     mysql_port: 0,
-    mysql_database: ''
+    mysql_database: '',
   };
-  const loaded_settings = await fs.readFile('./server.json', 'utf-8');
-  return { ...default_settings, ...JSON.parse(loaded_settings)};
+  const loadedSettings = await fs.readFile('./server.json', 'utf-8');
+  return {...defaultSettings, ...JSON.parse(loadedSettings)};
 };

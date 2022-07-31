@@ -1,39 +1,40 @@
-import colors from "colors";
-import express, { Express } from "express";
-import fs from "fs";
-import fsp from "fs/promises";
-import { ServerSettings } from "./models/settings.model";
-import { useDelete } from "./apis/delete";
-import { useImages } from "./apis/images";
-import { useUploadRoute } from "./apis/upload-image";
+import colors from 'colors';
+import express, { Express } from 'express';
+import fs from 'fs';
+import fsp from 'fs/promises';
+import { ServerSettings } from './models/settings.model';
+import { useDelete } from './apis/delete';
+import { useImages } from './apis/images';
+import { useUploadRoute } from './apis/upload-image';
 
 export const prepareApp = async () => {
   return new Promise<Express>((resolve, reject) => {
     const app = express();
     app.use(express.json());
 
-    app.all("*", function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "Content-Type");
-      res.header("Access-Control-Allow-Methods", "*");
+    app.all('*', (_req, res, next) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', 'Content-Type');
+      res.header('Access-Control-Allow-Methods', '*');
       next();
     });
 
-    if (!fs.existsSync("./images")) {
-      fsp.mkdir("./images").catch((err) => reject(err.message));
+    if (!fs.existsSync('./images')) {
+      fsp.mkdir('./images').catch((err) => reject(err.message));
     }
     resolve(app);
   });
 };
 
-export const startApp = (app:Express,setting: ServerSettings) => {
-
+export const startApp = (app: Express, setting: ServerSettings) => {
   useImages(app);
   useUploadRoute(app, setting.host, setting.port);
   useDelete(app);
 
   app.listen(setting.port, setting.host);
 
-  console.info(colors.green(`Now the server is work on ${setting.host}:${setting.port}`));
+  console.info(
+    colors.green(`Now the server is work on ${setting.host}:${setting.port}`)
+  );
   return app;
 };
