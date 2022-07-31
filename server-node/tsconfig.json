@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-      "outDir": "./build/",
+      "outDir": "./dist/",
       "noImplicitAny": true,
       "allowSyntheticDefaultImports": true,
-      "module": "es6",
+      "esModuleInterop": true,
+      "module": "CommonJS",
       "target": "es5",
       "allowJs": true,
       "moduleResolution": "node"
