@@ -10,7 +10,7 @@
     "start:app": "webpack --config ./config/webpack.prod.config.ts && npx ts-node ./scripts/pack.ts && cd ./build && node ./index.js",
     
     "package": "webpack --config ./config/webpack.prod.config.ts && npx ts-node ./scripts/pack.ts",
-    "clean": "npx ts-node ./scripts/clean.ts",
+    "clean": "cross-env NODE_ENV=development npx ts-node ./scripts/clean.ts",
     "test": "jest",
     "build:dev:tools": "webpack --config ./config/webpack.dev.tools.config.ts",
     "build:dev:app": "webpack --config ./config/webpack.dev.app.config.ts",
